@@ -1,12 +1,12 @@
 <template>
-	<div class="gallery cf">
-		<div v-if="results.length == 0">No items found</div>
-		<section v-else>
-            <div v-for="(result, key) in results" :key="key">
-                <img :src="result.links[0].href" />
-            </div>
-        </section>
-	</div>
+	<div v-if="results.length == 0">No items found</div>
+	<section v-else>
+		<div class="gallery cf">
+			<div v-for="(result, key) in results" :key="key">
+				<img :src="result.links[0].href" />
+			</div>
+		</div>
+	</section>
 </template>
 <script>
 export default {

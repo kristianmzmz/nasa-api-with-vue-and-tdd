@@ -19,30 +19,31 @@ test('Should render the provided data value', async () => {
     expect(component.text()).toContain('Found images(' + currentNumberOfItems + ')')
 })
 
-test('Should update the Found Images when the query is changed with the query size', async () => {
-    const component = shallowMount(Search)
-    const query = "sun"
-
-    await component.vm.doRequest(query)
-
-    expect(component.text()).toContain('Found images(' + query.length + ')')
-})
-
-test('Should update the Found Images on submit with the query size', async () => {
-    const component = shallowMount(Search)
-    const query = "sun"
-
-    component.setData({ query })
-    await component.find('form').trigger('submit')
-
-    expect(component.text()).toContain('Found images(' + query.length + ')')
-})
-
-
 import axios from 'axios'
 
 jest.mock('axios', () => ({
-    get: jest.fn()
+    get: jest.fn(() => Promise.resolve({ 
+        data: { 
+            collection: {
+                items: [
+                    {
+                        links : [
+                            {
+                                href: 'http://www.this-is-a-link-com'
+                            }
+                        ]
+                    },
+                    {
+                        links : [
+                            {
+                                href: 'http://www.this-is-another-link-com'
+                            }
+                        ]
+                    }
+                ]
+            }  
+        }
+     }))
 }))
 
 test('Should call the API on submit', async () => {
@@ -53,5 +54,15 @@ test('Should call the API on submit', async () => {
     await component.find('form').trigger('submit')
 
     expect(axios.get).toBeCalledWith('https://images-api.nasa.gov/search?media_type=image&q=' + query)
+})
+
+test('Should call the API on submit and update the results array', async () => {
+    const component = shallowMount(Search)
+    const query = "sun"
+
+    component.setData({ query })
+    await component.find('form').trigger('submit')
+
+    expect(component.vm.numberOfImages).toBe(2)
 })
 
