@@ -4,13 +4,18 @@
 			<input v-model="query" />
 		</form>
 		<span>Found images({{ numberOfImages }})</span>
+		<Gallery :results="results"/>
 	</div>
 </template>
 <script>
 import axios from "axios";
+import Gallery from "@/components/Gallery";
 
 export default {
 	name: "Search",
+	components: {
+		Gallery
+	},
 	data() {
 		return {
 			numberOfImages: 0,
