@@ -27,3 +27,13 @@ test('Should update the Found Images when the query is changed with the query si
 
     expect(component.text()).toContain('Found images('+ query.length +')')
 })
+
+test('Should update the Found Images on submit with the query size', async () => {
+    const component = shallowMount(Search)
+    const query = "sun"
+
+    component.setData({ query })
+    await component.find('form').trigger('submit')
+
+    expect(component.text()).toContain('Found images('+ query.length +')')
+})
