@@ -22,3 +22,13 @@ export default {
     }
 }
 </script>
+<style>
+.search {
+	text-align: center;
+}
+.search input {
+	padding: 6px;
+	margin-bottom: 12px;
+	font-size: 18px;
+}
+</style>
