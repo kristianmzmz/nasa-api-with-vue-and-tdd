@@ -1,7 +1,6 @@
 <template>
     <div class="search">
-        <form v-on:submit.prevent="doRequest()">
-
+        <form v-on:submit.prevent="doRequest(query)">
         </form>
         <span>Found images({{ numberOfImages }})</span>
     </div>
@@ -15,8 +14,8 @@ export default {
         }
     },
     methods: {
-        doRequest() {
-            this.numberOfImages = 33
+        doRequest(query) {
+            this.numberOfImages = query.length
         }
     }
 }
