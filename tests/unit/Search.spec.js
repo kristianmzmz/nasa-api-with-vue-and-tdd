@@ -6,3 +6,15 @@ test('A results string is rendered', () => {
 
     expect(component.text()).toContain('Found images(0)')
 })
+
+test('Should render the provided data value', async () => {
+    const component = shallowMount(Search)
+    const currentNumberOfItems = 23
+
+    component.setData({
+        numberOfImages: currentNumberOfItems
+    })
+    await component.vm.$nextTick
+
+    expect(component.text()).toContain('Found images('+ currentNumberOfItems +')')
+})
