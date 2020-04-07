@@ -19,7 +19,7 @@ test('Should render the provided data value', async () => {
     expect(component.text()).toContain('Found images('+ currentNumberOfItems +')')
 })
 
-test('Should update the Found Images on submit with the query size', async () => {
+test('Should update the Found Images when the query is changed with the query size', async () => {
     const component = shallowMount(Search)
     const query = "sun"
 
