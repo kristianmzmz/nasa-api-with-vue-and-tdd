@@ -22,8 +22,7 @@ test('Should render the provided data value', async () => {
 test('Should update the Found Images on submit', async () => {
     const component = shallowMount(Search)
 
-    component.find('form').trigger('submit')
-    await component.vm.$nextTick
+    await component.vm.doRequest()
 
     expect(component.text()).toContain('Found images(33)')
 })
