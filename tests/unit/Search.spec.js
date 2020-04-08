@@ -2,67 +2,68 @@ import { shallowMount } from '@vue/test-utils'
 import Search from '@/components/Search'
 
 test('A results string is rendered', () => {
-    const component = shallowMount(Search)
+    const search = shallowMount(Search)
 
-    expect(component.text()).toContain('Found images(0)')
+    expect(search.text()).toContain('Found images(0)')
 })
 
 test('Should render the provided data value', async () => {
-    const component = shallowMount(Search)
+    const search = shallowMount(Search)
     const currentNumberOfItems = 23
 
-    component.setData({
+    search.setData({
         numberOfImages: currentNumberOfItems
     })
-    await component.vm.$nextTick
+    await search.vm.$nextTick()
 
-    expect(component.text()).toContain('Found images(' + currentNumberOfItems + ')')
+    expect(search.text()).toContain('Found images(' + currentNumberOfItems + ')')
 })
 
 import axios from 'axios'
 
 jest.mock('axios', () => ({
-    get: jest.fn(() => Promise.resolve({ 
-        data: { 
+    get: jest.fn(() => Promise.resolve({
+        data: {
             collection: {
                 items: [
                     {
-                        links : [
+                        links: [
                             {
                                 href: 'http://www.this-is-a-link-com'
                             }
                         ]
                     },
                     {
-                        links : [
+                        links: [
                             {
                                 href: 'http://www.this-is-another-link-com'
                             }
                         ]
                     }
                 ]
-            }  
+            }
         }
-     }))
+    }))
 }))
 
 test('Should call the API on submit', async () => {
-    const component = shallowMount(Search)
+    const search = shallowMount(Search)
     const query = "sun"
 
-    component.setData({ query })
-    await component.find('form').trigger('submit')
+    search.setData({ query })
+    search.find('form').trigger('submit')
+    await search.vm.$nextTick()
 
     expect(axios.get).toBeCalledWith('https://images-api.nasa.gov/search?media_type=image&q=' + query)
 })
 
 test('Should call the API on submit and update the results array', async () => {
-    const component = shallowMount(Search)
+    const search = shallowMount(Search)
     const query = "sun"
 
-    component.setData({ query })
-    await component.find('form').trigger('submit')
+    search.setData({ query })
+    search.find('form').trigger('submit')
+    await search.vm.$nextTick()
 
-    expect(component.vm.numberOfImages).toBe(2)
+    expect(search.vm.numberOfImages).toBe(2)
 })
-
