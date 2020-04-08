@@ -1,19 +1,19 @@
 <template>
-	<div class="search">
-		<form v-on:submit.prevent="doRequest(query)">
-			<input v-model="query" />
-		</form>
-		Found images({{ numberOfImages }})
-		<Gallery :results="results" />
-	</div>
+  <div class="search">
+    <form @submit.prevent="doRequest(query)">
+      <input v-model="query">
+    </form>
+    Found images({{ numberOfImages }})
+    <Gallery :results="results" />
+  </div>
 </template>
 
 <script>
-import axios from "axios"
-import Gallery from "@/components/Gallery"
+import axios from 'axios'
+import Gallery from '@/components/Gallery'
 
 export default {
-	name: "Search",
+	name: 'Search',
 	components: {
 		Gallery
 	},
@@ -27,7 +27,12 @@ export default {
 	methods: {
 		doRequest(query) {
 			axios
-				.get("https://images-api.nasa.gov/search?media_type=image&q=" + query)
+				.get('https://images-api.nasa.gov/search', {
+					params: {
+						media_type: 'image',
+						q: query
+					}
+				})
 				.then(response => {
 					this.results = response.data.collection.items
 					this.numberOfImages = this.results.length

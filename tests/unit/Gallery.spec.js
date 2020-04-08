@@ -8,12 +8,12 @@ test('Should print empty message when no results found.', () => {
         }
     })
 
-    expect(gallery.text()).toContain("No items found")
+    expect(gallery.text()).toContain('No items found')
 })
 
 test('Should print each result item.', () => {
-    const link = "http://www.this-is-a-link-com"
-    const anotherLink = "http://www.this-is-another-link-com"
+    const link = 'http://www.this-is-a-link-com'
+    const anotherLink = 'http://www.this-is-another-link-com'
     const resultsData = [
         {
             links: [

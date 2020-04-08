@@ -54,12 +54,20 @@ test('Should call the API on submit', async () => {
     search.find('form').trigger('submit')
     await search.vm.$nextTick()
 
-    expect(axios.get).toBeCalledWith('https://images-api.nasa.gov/search?media_type=image&q=' + query)
+    expect(axios.get).toBeCalledWith(
+        'https://images-api.nasa.gov/search',
+        {
+            params: {
+                media_type: "image",
+                q: query
+            }
+        }
+    )
 })
 
 test('Should call the API on submit and update the results array', async () => {
     const search = shallowMount(Search)
-    const query = "sun"
+    const query = 'sun'
 
     search.setData({ query })
     search.find('form').trigger('submit')
