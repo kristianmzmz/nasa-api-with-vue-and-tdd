@@ -1,13 +1,14 @@
 <template>
 	<div v-if="results.length == 0">No items found</div>
-	<section v-else>
+	<div v-else>
 		<div class="gallery cf">
 			<div v-for="(result, key) in results" :key="key">
 				<img :src="result.links[0].href" />
 			</div>
 		</div>
-	</section>
+	</div>
 </template>
+
 <script>
 export default {
 	name: "Gallery",
@@ -17,7 +18,7 @@ export default {
 			required: true
 		}
 	}
-};
+}
 </script>
 
 <style scoped scss>

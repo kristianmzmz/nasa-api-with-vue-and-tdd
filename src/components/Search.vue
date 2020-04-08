@@ -3,13 +3,14 @@
 		<form v-on:submit.prevent="doRequest(query)">
 			<input v-model="query" />
 		</form>
-		<span>Found images({{ numberOfImages }})</span>
-		<Gallery :results="results"/>
+		Found images({{ numberOfImages }})
+		<Gallery :results="results" />
 	</div>
 </template>
+
 <script>
-import axios from "axios";
-import Gallery from "@/components/Gallery";
+import axios from "axios"
+import Gallery from "@/components/Gallery"
 
 export default {
 	name: "Search",
@@ -21,20 +22,21 @@ export default {
 			numberOfImages: 0,
 			query: "",
 			results: []
-		};
+		}
 	},
 	methods: {
 		doRequest(query) {
 			axios
 				.get("https://images-api.nasa.gov/search?media_type=image&q=" + query)
 				.then(response => {
-					this.results = response.data.collection.items;
-					this.numberOfImages = this.results.length;
-				});
+					this.results = response.data.collection.items
+					this.numberOfImages = this.results.length
+				})
 		}
 	}
-};
+}
 </script>
+
 <style scopped scss>
 .search {
 	text-align: center;
