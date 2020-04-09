@@ -21,8 +21,8 @@ test('Should render the provided data value', async () => {
 
 import axios from 'axios'
 
-jest.mock('axios', () => ({
-    get: jest.fn(() => Promise.resolve({
+axios.get = jest.fn(() => Promise.resolve(
+    {
         data: {
             collection: {
                 items: [
@@ -43,8 +43,8 @@ jest.mock('axios', () => ({
                 ]
             }
         }
-    }))
-}))
+    }
+))
 
 test('Should call the API on submit', async () => {
     const search = shallowMount(Search)
